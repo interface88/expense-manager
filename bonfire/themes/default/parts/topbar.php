@@ -19,18 +19,35 @@
 					<li class="divider-vertical"></li>
 <?php //style="height:40px" ?>
 					<?php if (isset($current_user->email)) : ?>
+					<li>
+						<a href="<?php echo site_url('logout');?>">
+							
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo site_url(); ?>">
+							<i class="icon icon-list"></i>
+							Expense List
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo site_url(); ?>">
+							<i class="icon icon-list"></i>
+							Expense manager
+						</a>
+					</li>
+					<li>
+						<a href="<?php echo site_url(); ?>">
+							<i class="icon icon-user"></i>
+							Manage user account
+						</a>
+					</li>
 					<li class="dropdown" >
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<?php echo $current_user->user_img; ?>
 						<b class="caret"></b></a>
 
 						<ul class="dropdown-menu">
-							<li>
-								<a href="<?php echo site_url(); ?>">
-									<?php echo lang('bf_home') ?>
-								</a>
-							</li>
-
 							<?php if (has_permission('Site.Content.View')) : ?>
 							<li class="divider"></li>
 							<li>

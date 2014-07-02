@@ -1,7 +1,7 @@
 <?php
 	// Setup our default assets to load.
 	Assets::add_js(array( 'bootstrap.min.js','lib/handsontable/jquery.handsontable.full.js','jquery.dataTables.js' ));
-	Assets::add_css( array('bootstrap.min.css', 'bootstrap-responsive.min.css','js/lib/handsontable/jquery.handsontable.full.css','bootstrap-dataTables.css'));
+	Assets::add_css( array('bootstrap.min.css', 'bootstrap-responsive.min.css','handsontable.css','bootstrap-dataTables.css'));
 			
 	$inline  = '$(".dropdown-toggle").dropdown();';
 	$inline .= '$(".tooltips").tooltip();';
