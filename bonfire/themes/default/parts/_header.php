@@ -6,7 +6,7 @@
 	$inline  = '$(".dropdown-toggle").dropdown();';
 	$inline .= '$(".tooltips").tooltip();';
 	$inline .= '$(".login-btn").click(function(e){ e.preventDefault(); $("#modal-login").modal(); });';
-	$inline .= '$("#data-table").dataTable();';
+	$inline .= '//$("#data-table").dataTable();';
 
 	Assets::add_js( $inline, 'inline' );
 

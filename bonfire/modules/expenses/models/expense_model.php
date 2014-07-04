@@ -57,7 +57,35 @@ class Expense_model extends BF_Model
 		parent::where('deleted',0);
 		return parent::find_all();
 	}
-
+	
+	public function get_for_alal(){
+		parent::where('deleted',0);
+		parent::limit();
+		return parent::find_all();
+	}
+	
+	public function search($search_term  , $limit , $offset){
+		//setting the limit
+		parent::limit($limit , $offset);
+		$this->search_core($search_term);
+		$result =  parent::find_all();
+		return $result;
+		
+	}
+	
+	public function count_search_result($search_term){
+		parent::select('COUNT(*) AS count');
+		$this->search_core($search_term);
+		$result = parent::find_all();
+		return $result[0]->count;
+	}
+	
+	private function search_core($search_term){
+		if(!empty($search_term)){
+			$this->expense_model->where('stringer_name LIKE ' , '%'.$search_term.'%');
+			$this->expense_model->where('description LIKE ' , '%'.$search_term.'%');
+		}
+	}
 
 	//--------------------------------------------------------------------
 
