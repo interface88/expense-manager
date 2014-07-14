@@ -76,7 +76,7 @@ class Expenses extends Front_Controller
 		$output = array(
 			"sEcho" => intval($_GET['sEcho']),
 			"iTotalRecords" => $no_of_expenses,
-			"iTotalDisplayRecords" => $limit,
+			"iTotalDisplayRecords" => $no_of_expenses,
 			"aaData" => array()
 		);
 		

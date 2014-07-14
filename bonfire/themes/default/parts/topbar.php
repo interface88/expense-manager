@@ -25,13 +25,13 @@
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo site_url(); ?>">
+						<a href="<?php echo site_url('expenses'); ?>">
 							<i class="icon icon-list"></i>
 							Expense List
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo site_url(); ?>">
+						<a href="<?php echo site_url('expenses/manager'); ?>">
 							<i class="icon icon-list"></i>
 							Expense manager
 						</a>
@@ -39,7 +39,7 @@
 					<li>
 						<a href="<?php echo site_url(); ?>">
 							<i class="icon icon-user"></i>
-							Manage user account
+							Manage users
 						</a>
 					</li>
 					<li class="dropdown" >
