@@ -29,7 +29,6 @@
  */
 class Manager extends Authenticated_Controller
 {
-
 	/**
 	 * Constructor
 	 *
@@ -71,7 +70,6 @@ class Manager extends Authenticated_Controller
 	
 	public function update()
 	{
-    		
     	
 		// TODO : MOVE BELOW CODE TO MODEL OF FILTERING REQUEST.
 		// OPTIMIZE THIS CODE FOR SPEED AND SECURITY AND VALIDATION
@@ -85,7 +83,6 @@ class Manager extends Authenticated_Controller
 		}
 		
 		if(isset($arr['costs'])){
-			var_dump('rajesh' );
 			$data['costs'] = $arr['costs'];
 			$this->form_validation->set_rules('stringer_name', 'Costs', 'required|trim|is_numeric|xss_clean');
 		}
@@ -140,7 +137,4 @@ class Manager extends Authenticated_Controller
 		}
 
 	}//end index()
-	
-	
-
 }//end class

@@ -155,7 +155,6 @@ class Base_Controller extends MX_Controller
 
 }//end Base_Controller
 
-
 //--------------------------------------------------------------------
 
 /**

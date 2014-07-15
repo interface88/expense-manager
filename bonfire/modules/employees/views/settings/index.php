@@ -4,6 +4,7 @@
 
 <div class="admin-box">
 	<h3><?php echo lang('bf_users') ?></h3>
+	<a href="<?php echo site_url().'employees/create'; ?>" class="btn" style="float: right;"><?php echo lang('us_create_user') ?></a>
 
 	<ul class="nav nav-tabs" >
 		<li <?php echo $filter=='' ? 'class="active"' : ''; ?>><a href="<?php echo $current_url; ?>">All Users</a></li>
@@ -18,7 +19,7 @@
 			<ul class="dropdown-menu">
 			<?php foreach ($roles as $role) : ?>
 				<li>
-					<a href="<?php e(site_url(SITE_AREA .'/settings/users?filter=role&role_id='. $role->role_id)) ?>">
+					<a href="<?php e(site_url('/employees?filter=role&role_id='. $role->role_id)) ?>">
 						<?php echo $role->role_name; ?>
 					</a>
 				</li>
@@ -70,7 +71,7 @@
 				</td>
 				<td><?php echo $user->id ?></td>
 				<td>
-					<a href="<?php echo site_url(SITE_AREA .'/settings/users/edit/'. $user->id); ?>"><?php echo $user->username; ?></a>
+					<a href="<?php echo site_url('/employees/edit/'. $user->id); ?>"><?php echo $user->username; ?></a>
 					<?php if ($user->banned) echo '<span class="label label-warning">Banned</span>'; ?>
 				</td>
 				<td><?php echo $user->display_name ?></td>
@@ -130,6 +131,6 @@
 	</table>
 	<?php echo form_close(); ?>
 
-	<?php echo $this->pagination->create_links(); ?>
+	<?php //echo $this->pagination->create_links(); ?>
 
 </div>
