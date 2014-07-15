@@ -55,10 +55,46 @@ class Expenses extends Front_Controller
 
 	}//end index()
 	
-	public function search()
+	public function data_list()
 	{
-		//search functionality code goes here
-
+		$offset = $this->input->get('iDisplayStart') ?  $this->input->get('iDisplayStart') : 0;
+		$limit = $this->input->get('iDisplayLength') ?  $this->input->get('iDisplayLength') : 10;
+		
+		
+		// -------------- search code block ------------- 
+		/**
+		 * HERE WE ARE SEARCHING ON stringer AND description. But we can add more paramter in future
+		 */
+		$search_term =  $this->input->get('sSearch');
+		$expenses = $this->expense_model->search($search_term, $limit , $offset);
+		$no_of_expenses = $this->expense_model->count_search_result($search_term);
+		
+		 
+		// -------------- end search code block -------------
+		
+		// ------ preparing data for datatable
+		$output = array(
+			"sEcho" => intval($_GET['sEcho']),
+			"iTotalRecords" => $no_of_expenses,
+			"iTotalDisplayRecords" => $no_of_expenses,
+			"aaData" => array()
+		);
+		
+		if($expenses){
+			foreach ($expenses as $expense) {
+				$row = array();
+				$row[] = $expense->expense_date;
+				$row[] = $expense->stringer_name;
+				$row[] = $expense->costs;
+				$row[] = $expense->description;
+				$row[] = $expense->released_from_received;
+				$row[] = $expense->paid_date;
+				$output['aaData'][] = $row;
+			}
+		}
+		
+		
+		 echo json_encode( $output );
 	}//end index()
 	
 	

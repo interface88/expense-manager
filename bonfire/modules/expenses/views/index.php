@@ -25,21 +25,20 @@
 					</tr>
 				</thead>
 				<tbody>
-				<?php if($expenses):?>
-					<?php foreach($expenses as $expense):?>
-						<tr>
-							<td><?php echo $expense->expense_date?></td>
-							<td><?php echo $expense->stringer_name?></td>
-							<td><?php echo $expense->costs?></td>
-							<td><?php echo $expense->description?></td>
-							<td><?php echo $expense->released_from_received?></td>
-							<td><?php echo $expense->paid_date?></td>
-						</tr>
-					<?php endforeach;?>
-				<?php endif;?>
 				</tbody>
 			</table>
 			
 		</div>
 	</div>
+<script>
+	
+	function page_init(){
+		$('#data-table').dataTable( {
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "<?php echo site_url('expenses/data_list')?>"
+		} );
+	}
+</script>
+<?php Assets::add_js( 'page_init();', 'inline' );?>
 </section>

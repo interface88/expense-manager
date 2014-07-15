@@ -53,11 +53,77 @@ class Expense_model extends BF_Model
 
 	}//end __construct()
 	
+	public function insert($post){
+		/*
+		 * DATE FORMATE CONVERSION WILL GOES HERE
+		 * */
+		//$data['expense_date'] =  date('Y-m-d H:i:s', $data['expense_date']);
+		//$data['paid_date'] =  date('Y-m-d H:i:s', $data['paid_date']);
+		
+		$data = array(
+			'stringer_name' =>  $post['stringer_name'],
+			'description' =>  $post['description'],
+			'paid_date' =>  $post['paid_date'],
+			'expense_date' =>  $post['expense_date'],
+			'released_from_received' =>  $post['released_from_received'],
+			'costs' =>  $post['costs']
+		);
+		return parent::insert($data);
+	}
+	
+	public function udapte($id , $post){
+		/*
+		 * DATE FORMATE CONVERSION WILL GOES HERE
+		 * */
+		//$data['expense_date'] =  date('Y-m-d H:i:s', $data['expense_date']);
+		//$data['paid_date'] =  date('Y-m-d H:i:s', $data['paid_date']);
+		
+		$data = array(
+			'stringer_name' =>  $post['stringer_name'],
+			'description' =>  $post['description'],
+			'paid_date' =>  $post['paid_date'],
+			'expense_date' =>  $post['expense_date'],
+			'released_from_received' =>  $post['released_from_received'],
+			'costs' =>  $post['costs']
+		);
+		return parent::udpate($id, $data);
+	}
+	
 	public function get_for_all(){
-		parent::where('deleted',0);
+		parent::where('deleted',0); //Not deleted record
+		parent::order_by('created_on','desc'); //getting latest record
 		return parent::find_all();
 	}
-
+	
+	public function get_for_alal(){
+		parent::where('deleted',0);//geeting not deleted
+		
+		parent::limit();
+		return parent::find_all();
+	}
+	
+	public function search($search_term  , $limit , $offset){
+		//setting the limit
+		parent::limit($limit , $offset);
+		$this->search_core($search_term);
+		$result =  parent::find_all();
+		return $result;
+		
+	}
+	
+	public function count_search_result($search_term){
+		parent::select('COUNT(*) AS count');
+		$this->search_core($search_term);
+		$result = parent::find_all();
+		return $result[0]->count;
+	}
+	
+	private function search_core($search_term){
+		if(!empty($search_term)){
+			$this->expense_model->where('stringer_name LIKE ' , '%'.$search_term.'%');
+			$this->expense_model->where('description LIKE ' , '%'.$search_term.'%');
+		}
+	}
 
 	//--------------------------------------------------------------------
 
