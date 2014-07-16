@@ -29,13 +29,8 @@ if (!defined('BASEPATH'))
  * @link       http://guides.cibonfire.com/helpers/file_helpers.html
  *
  */
-<<<<<<< HEAD
-class Manager extends Authenticated_Controller
-{
-=======
 class Manager extends Authenticated_Controller {
 
->>>>>>> c68c3e6f0c25f0e69eaaf59c58f43281df4ee385
 	/**
 	 * Constructor
 	 *
@@ -90,16 +85,9 @@ class Manager extends Authenticated_Controller {
 		 * */
 
 	}//end index()
-<<<<<<< HEAD
-	
-	public function update()
-	{
-    	
-=======
 
 	public function update() {
 
->>>>>>> c68c3e6f0c25f0e69eaaf59c58f43281df4ee385
 		// TODO : MOVE BELOW CODE TO MODEL OF FILTERING REQUEST.
 		// OPTIMIZE THIS CODE FOR SPEED AND SECURITY AND VALIDATION
 		$arr = $_GET;
@@ -109,14 +97,9 @@ class Manager extends Authenticated_Controller {
 
 			$data['stringer_name'] = $arr['stringer_name'];
 		}
-<<<<<<< HEAD
-		
-		if(isset($arr['costs'])){
-=======
 
 		if (isset($arr['costs'])) {
 			var_dump('rajesh');
->>>>>>> c68c3e6f0c25f0e69eaaf59c58f43281df4ee385
 			$data['costs'] = $arr['costs'];
 		}
 
@@ -170,8 +153,6 @@ class Manager extends Authenticated_Controller {
 		redirect('expenses/manager');
 
 	}//end index()
-<<<<<<< HEAD
-=======
 
 	private function validate() {
 
@@ -186,5 +167,4 @@ class Manager extends Authenticated_Controller {
 		return $this -> form_validation -> run();
 	}
 
->>>>>>> c68c3e6f0c25f0e69eaaf59c58f43281df4ee385
 }//end class
