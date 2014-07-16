@@ -61,13 +61,13 @@ class Manager extends Authenticated_Controller {
 					 	Template::set_message('Expense successfully added','success');
 						Template::redirect('expenses/manager');
 					 }else{
-						Template::set_message('Error adding record.'); 	
+						Template::set_message('Error adding expense.','error'); 	
 					 }
 				}
  			}
 			Template::render();
 		} else {
-			Template::set_message('You don\'t have permission to add expense');
+			Template::set_message('You don\'t have permission to add expense','error');
 			Template::redirect('expenses/manager');
 			
 		}
@@ -86,8 +86,35 @@ class Manager extends Authenticated_Controller {
 
 	}//end index()
 
-	public function update() {
-
+	public function update($id = false) {
+		if($id){
+			$expense = $this->expense_model->find($id);
+			if($expense){
+				if($_POST){
+					$post = $this -> input -> post();
+					if ($this -> validate()) {
+						 if($this->expense_model->update($id, $post)){
+						 	Template::set_message('Expense successfully updated.','success');
+							Template::redirect('expenses/manager');
+						 }else{
+							Template::set_message('Error updating expense.','error'); 	
+						 }
+					}			
+				}
+				Template::set('expense',$expense);
+				Template::render();
+				
+			} else {
+				Template::set_message('Record doesn\'t exist or has been deleted.','error');
+				Template::redirect('expenses/manager');
+			}
+		}else{
+			Template::redirect('expenses/manager');
+		}
+		
+			
+		
+	/*
 		// TODO : MOVE BELOW CODE TO MODEL OF FILTERING REQUEST.
 		// OPTIMIZE THIS CODE FOR SPEED AND SECURITY AND VALIDATION
 		$arr = $_GET;
@@ -99,7 +126,6 @@ class Manager extends Authenticated_Controller {
 		}
 
 		if (isset($arr['costs'])) {
-			var_dump('rajesh');
 			$data['costs'] = $arr['costs'];
 		}
 
@@ -134,6 +160,8 @@ class Manager extends Authenticated_Controller {
 		var_dump($this -> form_validation -> run());
 		Template::set_view('response.php');
 		Template::render();
+	 * *
+	 */
 
 	}//end index()
 
@@ -142,13 +170,13 @@ class Manager extends Authenticated_Controller {
 			if ($id) {
 				if ($this -> expense_model -> find($id)) {
 					$this -> expense_model -> delete($id);
-					Template::set_message('Record deleted successfully');
+					Template::set_message('Record deleted successfully','success');
 				} else {
-					Template::set_message('Record doesn\' exist');
+					Template::set_message('Record doesn\'t exist','error');
 				}
 			}
 		} else {
-			Template::set_message('You don\'t have permission to delete a record');
+			Template::set_message('You don\'t have permission to delete a record','error');
 		}
 		redirect('expenses/manager');
 
@@ -160,7 +188,9 @@ class Manager extends Authenticated_Controller {
 		$this -> form_validation -> set_rules('stringer_name', 'Stringer name', 'required|trim|xss_clean');
 		$this -> form_validation -> set_rules('costs', 'Costs', 'required|trim|is_numeric|xss_clean');
 		$this -> form_validation -> set_rules('expense_date', 'Expense date', 'required|trim|date|xss_clean');
-		$this -> form_validation -> set_rules('paid_date', 'Paid date', 'required|trim|date|xss_clean');
+		if (has_permission('App.Expenses.PaidDate')){
+			$this -> form_validation -> set_rules('paid_date', 'Paid date', 'required|trim|date|xss_clean');
+		}
 		$this -> form_validation -> set_rules('description', 'Description', 'trim|xss_clean');
 		$this -> form_validation -> set_rules('released_from_received', 'Stringer name', 'trim|xss_clean');
 
