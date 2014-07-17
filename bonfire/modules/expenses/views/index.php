@@ -33,6 +33,19 @@
 <script>
 	
 	function page_init(){
+		/*
+		$('#data-table').dataTable( {
+			"bProcessing": true,
+			"bServerSide": true,
+			"sAjaxSource": "<?php echo site_url('expenses/data_list')?>",
+			 "aoColumns": [
+			 		{ "fnRender": function ( o, val ) {return o.aData[0];} },
+			 		
+			    ]
+		} );
+		
+		*/
+		
 		$('#data-table').dataTable( {
 			"bProcessing": true,
 			"bServerSide": true,

@@ -22,10 +22,13 @@
 					<i class="icon-white icon-file"></i>	
 					Export to CSV
 				</a>
+				<?php if (has_permission('App.Expenses.Add')):?>
 				<a class="btn btn-primary" href="<?php echo site_url('expenses/manager/add')?>">
 					<i class="icon-white icon-plus"></i>	
 					Add new
 				</a>
+				<?php endif;?>
+				TODO : DELETE PERMISIIION.
 			</div>
 		</div>
 	</div>
@@ -54,7 +57,7 @@
 							<td><?php echo $expense -> released_from_received; ?></td>
 							<td><?php echo $expense -> paid_date; ?></td>
 							<td>
-								<button class="btn-small btn delete"><i class="icon-trash"></i></button>
+								<a href="<?php echo site_url('expenses/manager/delete/'.$expense -> id)?>">Delete</a>
 							</td>
 						</tr>
 					<?php endforeach; ?>
