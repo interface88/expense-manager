@@ -21,7 +21,7 @@
 					<?php if (isset($current_user->email)) : ?>
 					<li>
 						<a href="<?php echo site_url('logout');?>">
-							
+							Logout
 						</a>
 					</li>
 					<li>
@@ -37,7 +37,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="<?php echo site_url(); ?>">
+						<a href="<?php echo site_url('employees/employees'); ?>">
 							<i class="icon icon-user"></i>
 							Manage users
 						</a>
