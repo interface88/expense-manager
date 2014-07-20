@@ -118,6 +118,29 @@ class Expense_model extends BF_Model
 		$result = parent::find_all();
 		return $result[0]->count;
 	}
+
+	public function report_csv($post){
+		$where = 'WHERE 1 ';		
+		if(!empty($post['stringer_name'])){
+			$where .= " AND stringer_name LIKE '%".$post['stringer_name']."' ";
+		}
+		
+		$query = "SELECT
+			`id`, `stringer_name`, `description`, `expense_date`, `paid_date`, `costs`, `released_from_received`
+			FROM ".$this->db->dbprefix($this->table).'  '.$where;
+		return $this->db->query($query);
+	}
+
+	public function report_pdf($post){
+		
+		if($post['stringer_name']){
+			
+		}
+		parent::select('COUNT(*) AS count');
+		$this->search_core($search_term);
+		$result = parent::find_all();
+		return $result[0]->count;
+	}
 	
 	private function search_core($search_term){
 		if(!empty($search_term)){
