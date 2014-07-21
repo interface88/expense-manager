@@ -18,37 +18,30 @@
 				<ul class="nav pull-right">
 					<li class="divider-vertical"></li>
 <?php //style="height:40px" ?>
-					
 					<?php if (isset($current_user->email)) : ?>
-						<li>
-							<a href="<?php echo site_url('logout');?>">
-								Logout
-							</a>
-						</li>
-					
+					<li>
+						<a href="<?php echo site_url('logout');?>">
+							Logout
+						</a>
+					</li>
 					<li>
 						<a href="<?php echo site_url('expenses'); ?>">
 							<i class="icon icon-list"></i>
 							Expense List
 						</a>
 					</li>
-					
 					<li>
 						<a href="<?php echo site_url('expenses/manager'); ?>">
 							<i class="icon icon-list"></i>
 							Expense manager
 						</a>
 					</li>
-					
-					<?php if(has_permission('Bonfire.Users.Add')): ?>
-						<li>
-							<a href="<?php echo site_url('employees/employees'); ?>">
-								<i class="icon icon-user"></i>
-								Manage users
-							</a>
-						</li>
-					<?php endif; ?>
-					
+					<li>
+						<a href="<?php echo site_url('employees/employees'); ?>">
+							<i class="icon icon-user"></i>
+							Manage users
+						</a>
+					</li>
 					<li class="dropdown" >
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 						<?php echo $current_user->user_img; ?>

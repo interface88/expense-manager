@@ -7,7 +7,7 @@
 			<div class="alert alert-info fade in">
 				<a class="close" data-dismiss="alert">×</a>
 				<h4 class="alert-heading">Manage expense.</h4>
-				You can Add, Update and Delete expense here.					
+				you can manage add, update and delete expense here.					
 			</div>
 		</div>
 	</div>
