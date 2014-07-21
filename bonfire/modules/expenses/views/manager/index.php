@@ -28,7 +28,6 @@
 					Add new
 				</a>
 				<?php endif;?>
-				TODO : DELETE PERMISIIION.
 			</div>
 		</div>
 	</div>
@@ -42,8 +41,11 @@
 						<th>Costs</th>
 						<th>Description</th>
 						<th>Released from recieved</th>
-						<th>Paid Date</th>		
+						<th>Paid Date</th>
 						<th></th>
+						<?php if (has_permission('App.Expenses.Delete')):?>
+							<th></th>
+						<?php endif;?>	
 					</tr>
 				</thead>
 				<tbody>
@@ -57,8 +59,17 @@
 							<td><?php echo $expense -> released_from_received; ?></td>
 							<td><?php echo $expense -> paid_date; ?></td>
 							<td>
-								<a href="<?php echo site_url('expenses/manager/delete/'.$expense -> id)?>">Delete</a>
+								<a class="btn btn-small btn-primary" href="<?php echo site_url('expenses/manager/update/'.$expense -> id)?>">
+									<i class="icon-white icon-edit "></i>
+								</a>
 							</td>
+							<?php if (has_permission('App.Expenses.Add')):?>
+								<td>
+									<a class="btn btn-small btn-danger" href="<?php echo site_url('expenses/manager/delete/'.$expense -> id)?>">
+										<i class="icon-white icon-trash "></i>	
+									</a>
+								</td>
+							<?php endif;?>
 						</tr>
 					<?php endforeach; ?>
 				</tbody>

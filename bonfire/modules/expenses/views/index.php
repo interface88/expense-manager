@@ -33,24 +33,31 @@
 <script>
 	
 	function page_init(){
-		/*
+		console.log('INIY RAJESH');
 		$('#data-table').dataTable( {
 			"bProcessing": true,
 			"bServerSide": true,
 			"sAjaxSource": "<?php echo site_url('expenses/data_list')?>",
-			 "aoColumns": [
-			 		{ "fnRender": function ( o, val ) {return o.aData[0];} },
-			 		
-			    ]
+			 "columnDefs": [
+	            {
+	                "render": function ( data, type, row ) {
+	                    return data +' ('+ row[3]+')';
+	                    console.log('HI');
+	                },
+	                "targets": 0
+	            },
+	            { "visible": false,  "targets": [ 3 ] }
+	        ]
 		} );
 		
-		*/
-		
+		/*		
 		$('#data-table').dataTable( {
 			"bProcessing": true,
 			"bServerSide": true,
+			"bSort": false,
 			"sAjaxSource": "<?php echo site_url('expenses/data_list')?>"
 		} );
+		*/
 	}
 </script>
 <?php Assets::add_js( 'page_init();', 'inline' );?>

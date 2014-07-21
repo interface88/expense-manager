@@ -17,16 +17,10 @@
 			<div class="nav-collapse collapse">
 				<ul class="nav pull-right">
 					<li class="divider-vertical"></li>
-<?php //style="height:40px" ?>
 					<?php if (isset($current_user->email)) : ?>
 					<li>
-						<a href="<?php echo site_url('logout');?>">
-							Logout
-						</a>
-					</li>
-					<li>
 						<a href="<?php echo site_url('expenses'); ?>">
-							<i class="icon icon-list"></i>
+							<i class="icon icon-list-alt"></i>
 							Expense List
 						</a>
 					</li>
@@ -49,11 +43,6 @@
 
 						<ul class="dropdown-menu">
 							<?php if (has_permission('Site.Content.View')) : ?>
-							<li class="divider"></li>
-							<li>
-								<?php echo anchor(SITE_AREA, 'Control Panel'); ?>
-							</li>
-
 							<?php endif; ?>
 							<li class="divider"></li>
 							<li>
