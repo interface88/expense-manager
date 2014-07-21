@@ -36,55 +36,66 @@ class Manager extends Authenticated_Controller {
 	 *
 	 * @return void
 	 */
-	public function __construct() {
-		parent::__construct();
-		if (!class_exists('Expense_model')) {
-			$this -> load -> model('Expense_model', 'expense_model');
-		}
+		public function __construct() {
+			parent::__construct();
+			if (!class_exists('Expense_model')) {
+				$this -> load -> model('Expense_model', 'expense_model');
+			}
+		}//end __construct()
+	
+	//----------------------------------------------------------------------------------------
 
-	}//end __construct()
-
-	public function index() {
-		$expenses = $this -> expense_model -> get_for_all();
-		Template::set('expenses', $expenses);
-		Template::render();
-
-	}//end index()
-
-	public function add() {
-
-		if (has_permission('App.Expenses.Add')) {
-			if ($_POST) {
-				$post = $this -> input -> post();
-				if ($this -> validate()) {
-					 if($this->expense_model->insert($post)){
-					 	Template::set_message('Expense successfully added','success');
-						Template::redirect('expenses/manager');
-					 }else{
-						Template::set_message('Error adding expense.','error'); 	
-					 }
-				}
- 			}
+		public function index() {
+			$expenses = $this -> expense_model -> get_for_all();
+			Template::set('expenses', $expenses);
 			Template::render();
-		} else {
-			Template::set_message('You don\'t have permission to add expense','error');
-			Template::redirect('expenses/manager');
+		}//end index()
+	
+	//----------------------------------------------------------------------------------------
+
+		public function add() {
+	
+			if (has_permission('App.Expenses.Add')) 
+				{
+					if ($_POST) 
+						{
+							$post = $this -> input -> post();
+							if ($this -> validate()) 
+							  {
+								 if($this->expense_model->insert($post))
+								  {
+								 	Template::set_message('Expense successfully added','success');
+									Template::redirect('expenses/manager');
+								  }
+								 else
+								  {
+									Template::set_message('Error adding expense.','error'); 	
+								  }
+							 }
+			 			}
+					Template::render();
+				} 
 			
-		}
-
-		/*
-		 if(has_permission('App.Expenses.Add')){
-		 $expense = array(
-		 'stringer_name' => null
-		 );
-		 $expense = $this->expense_model->insert($expense);
-		 Template::set('response',$expense);
-		 Template::set_view('response.php');
-		 Template::render();
-		 }
-		 * */
-
-	}//end index()
+			else 
+				{
+					Template::set_message('You don\'t have permission to add expense','error');
+					Template::redirect('expenses/manager');
+				}
+	
+			/*
+			 if(has_permission('App.Expenses.Add')){
+			 $expense = array(
+			 'stringer_name' => null
+			 );
+			 $expense = $this->expense_model->insert($expense);
+			 Template::set('response',$expense);
+			 Template::set_view('response.php');
+			 Template::render();
+			 }
+			 * */
+		}//end index()
+		
+	//----------------------------------------------------------------------------------------
 
 	public function update($id = false) {
 		if($id){
@@ -164,37 +175,45 @@ class Manager extends Authenticated_Controller {
 	 */
 
 	}//end index()
+	
+	//----------------------------------------------------------------------------------------
 
-	public function delete($id = false) {
-		if (has_permission('App.Expenses.Delete')) {
-			if ($id) {
-				if ($this -> expense_model -> find($id)) {
-					$this -> expense_model -> delete($id);
-					Template::set_message('Record deleted successfully','success');
-				} else {
-					Template::set_message('Record doesn\'t exist','error');
+		public function delete($id = false) {
+			if (has_permission('App.Expenses.Delete')) {
+				if ($id) {
+					if ($this -> expense_model -> find($id)) {
+						$this -> expense_model -> delete($id);
+						Template::set_message('Record deleted successfully','success');
+					} else {
+						Template::set_message('Record doesn\'t exist','error');
+					}
 				}
+			} else {
+				Template::set_message('You don\'t have permission to delete a record','error');
 			}
-		} else {
-			Template::set_message('You don\'t have permission to delete a record','error');
+			redirect('expenses/manager');
+	
+		}//end index()
+	
+	//----------------------------------------------------------------------------------------
+
+		private function validate() {
+				
+			$this -> form_validation -> set_rules('stringer_name', 'Stringer name', 'required|trim|xss_clean');
+			$this -> form_validation -> set_rules('costs', 'Costs', 'required|trim|is_numeric|xss_clean');
+			$this -> form_validation -> set_rules('expense_date', 'Expense date', 'required|trim|date|xss_clean');
+			
+			if (has_permission('App.Expenses.PaidDate'))
+				{
+					$this -> form_validation -> set_rules('paid_date', 'Paid date', 'required|trim|date|xss_clean');
+				}
+				
+			$this -> form_validation -> set_rules('description', 'Description', 'trim|xss_clean');
+			$this -> form_validation -> set_rules('released_from_received', 'Stringer name', 'trim|xss_clean');
+	
+			return $this -> form_validation -> run();
 		}
-		redirect('expenses/manager');
 
-	}//end index()
-
-	private function validate() {
-
-		//--------------------- validating data -------------------------------
-		$this -> form_validation -> set_rules('stringer_name', 'Stringer name', 'required|trim|xss_clean');
-		$this -> form_validation -> set_rules('costs', 'Costs', 'required|trim|is_numeric|xss_clean');
-		$this -> form_validation -> set_rules('expense_date', 'Expense date', 'required|trim|date|xss_clean');
-		if (has_permission('App.Expenses.PaidDate')){
-			$this -> form_validation -> set_rules('paid_date', 'Paid date', 'required|trim|date|xss_clean');
-		}
-		$this -> form_validation -> set_rules('description', 'Description', 'trim|xss_clean');
-		$this -> form_validation -> set_rules('released_from_received', 'Stringer name', 'trim|xss_clean');
-
-		return $this -> form_validation -> run();
-	}
+	//----------------------------------------------------------------------------------------
 
 }//end class
